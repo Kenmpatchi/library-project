@@ -4,7 +4,7 @@ Noid_found EXCEPTION;
 n integer;
 begin
 select count(*) into n from books where book_id=id;
-if v_id=id then raise Noid_found;
+if n=1 then raise Noid_found;
 end if; 
 update books
 set nb_exemplaires=new_stock
