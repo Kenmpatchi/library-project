@@ -1,11 +1,11 @@
 SET serveroutput ON;
 create or replace procedure modify_adherent(id in adherents.adherent_id%type,new_FN in adherents.first_name%type,new_LN in adherents.last_name%type)is
 Noid_found EXCEPTION;
-v_id adherents.adherent_id%type;
+n integer;
 begin
 --raise exception when id not found
-select adherent_id into v_id from adherents where adherent_id=id;
-if v_id=id then raise Noid_found;
+select count(*) into n from adherents where adherent_id=id;
+if n=1 then raise Noid_found;
 end if;  
 update adherents
 set first_name=new_FN,last_name=new_LN

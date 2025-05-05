@@ -1,9 +1,9 @@
 SET serveroutput ON;
 create or replace procedure modify_stock_book(id in books.book_id%type,new_stock in books.nb_exemplaires%type)is
 Noid_found EXCEPTION;
-v_id adherents.adherent_id%type;
+n integer;
 begin
-select book_id into v_id from books where book_id=id;
+select count(*) into n from books where book_id=id;
 if v_id=id then raise Noid_found;
 end if; 
 update books
