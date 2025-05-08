@@ -33,7 +33,7 @@ CREATE OR REPLACE PACKAGE body pkg_library AS
     function nb_NotReadys(id in readys.adherent_id%type)return number is
         nb integer;
         begin
-            select count(*)into nb from readys where adherent_id=id and date_retour is null;
+            select count(*)into nb from readys where adherent_id=id and date_retour<sysdate;
             return nb;
         EXCEPTION
         when no_data_found then
@@ -44,17 +44,18 @@ CREATE OR REPLACE PACKAGE body pkg_library AS
             dbms_output.put_line('error: '||SQLERRM);
     end nb_NotReadys;
     function stock_available(id in books.book_id%type)return number is
-        nb integer;
-        begin
-            select nb_exemplaires into nb from books where book_id=id;
-            nb:=nb-nb-nb_NotReadys(id); 
+    nb number;
+    nbnotreadys number;
+    begin
+        select nb_exemplaires into nb from books where book_id=id;
+        select nb_NotReadys(id) into nbnotreadys from dual;
+        nb:=nb-nb-nbnotreadys; 
         return nb;
         exception
         when no_data_found then
-            rollback;
-            dbms_output.put_line('invalide id');
+        dbms_output.put_line('invalide id');
         when others then
-            rollback;
-            dbms_output.put_line('error: '||SQLERRM);
+        dbms_output.put_line('error: '||SQLERRM);
     end stock_available;
-END pkg_library;
+END;
+/

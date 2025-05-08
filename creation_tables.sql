@@ -22,7 +22,7 @@ create table readys(
     book_id integer not null,
     adherent_id integer not null,
     date_ready date not null,
-    date_retour date,
+    date_retour date not null,
     constraint foreign key (book_id) references books(book_id),
     constraint foreign key (adherent_id) references adherents(adherent_id)
 );
