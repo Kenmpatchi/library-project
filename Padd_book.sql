@@ -10,7 +10,6 @@ end if;
 insert into books(book_id,title,author_id,nb_exemplaires)values(id,title,author_id,nb_exemplaires);
 EXCEPTION
 when id_found then
-    rollback;
     dbms_output.put_line('this id already taken :');
 when others then
     rollback;

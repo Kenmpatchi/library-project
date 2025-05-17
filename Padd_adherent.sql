@@ -10,7 +10,6 @@ end if;
 insert into adherents(adherent_id,first_name,last_name,date_inscription)values(id,firstName,lastName,dateInscription);
 EXCEPTION
 when id_found then
-    rollback;
     dbms_output.put_line('this id already taken ');
 end;
 /

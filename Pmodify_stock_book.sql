@@ -11,7 +11,6 @@ set nb_exemplaires=new_stock
 where book_id=id;
 EXCEPTION
 when Noid_found then
-    rollback;
     dbms_output.put_line('invalide id');
 when others then
     rollback;

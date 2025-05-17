@@ -12,7 +12,6 @@ set first_name=new_FN,last_name=new_LN
 where adherent_id=id;
 EXCEPTION
 when Noid_found then
-    rollback;
     dbms_output.put_line('invalide id');
 when others then
     rollback;

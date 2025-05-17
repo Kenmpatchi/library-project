@@ -1,15 +1,15 @@
-create table authors(
+create table IF NOT EXISTS authors(
     author_id integer primary key,
     first_name varchar(20) not null,
     last_name varchar(20) not null
 );
-create table adherents(
+create table IF NOT EXISTS adherents(
     adherent_id integer primary key,
     first_name varchar(20) not null,
     last_name varchar(20) not null,
     date_inscription Date not null
 );
-create table books(
+create table IF NOT EXISTS books(
     book_id integer primary key,
     title varchar(50) not null,
     author_id integer,
@@ -17,7 +17,7 @@ create table books(
     constraint foreign key (author_id) references authors(author_id)
 );
 
-create table readys(
+create table IF NOT EXISTS readys(
     ready_id integer primary key,
     book_id integer not null,
     adherent_id integer not null,
