@@ -10,7 +10,6 @@ CREATE OR REPLACE PACKAGE body pkg_library AS
         insert into adherents(adherent_id,first_name,last_name,date_inscription)values(id,firstName,lastName,dateInscription);
         EXCEPTION
         when id_found then
-            rollback;
             dbms_output.put_line('this id already taken ');
     end add_adherent;
     procedure add_book(id in books.book_id%type,title in books.title%type,author_id in books.author_id%type,nb_exemplaires books.nb_exemplaires%type)is
@@ -24,7 +23,6 @@ CREATE OR REPLACE PACKAGE body pkg_library AS
         insert into books(book_id,title,author_id,nb_exemplaires)values(id,title,author_id,nb_exemplaires);
         EXCEPTION
         when id_found then
-            rollback;
             dbms_output.put_line('this id already taken :');
         when others then
             rollback;
@@ -37,10 +35,8 @@ CREATE OR REPLACE PACKAGE body pkg_library AS
             return nb;
         EXCEPTION
         when no_data_found then
-            rollback;
             dbms_output.put_line('invalide id');
         when others then
-            rollback;
             dbms_output.put_line('error: '||SQLERRM);
     end nb_NotReadys;
     function stock_available(id in books.book_id%type)return number is
